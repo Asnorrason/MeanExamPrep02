@@ -12,8 +12,9 @@
 ######Pros
 
 - Simple to use, example:
- var express = require('express')
 
+	var express = require('express')
+	
 	var app = express()
 	
 	app.get('/', function (req, res) { res.send('Hello World') })
@@ -48,5 +49,55 @@ describe("Quick CRUD test", function() {
     });
 });
 
+####Explain, using relevant examples, the Express concept; middleware.
+
+Middleware functions are functions that have access to the request object (req), the response object (res), and the next middleware function in the application’s request-response cycle.
+
+There are five different types of middlewares:
+
+- Application-level middleware
+- Router-level middleware
+- Error-handling middleware
+- Built-in middleware
+- Third-party middleware
+
+As you can see in the example, you have to call next(); else it won’t go to the next middleware. The example has to be last in the document, else it will recognize the 404 error code before the real code, and then go to the next middleware which is development error handler or the production error handler.
+
+// catch 404 and forward to error handler
+
+app.use(function(req, res, next) {
+
+  var err = new Error('Not Found');
+  
+  err.status = 404;
+  
+  next(err);
+  
+});
+
+// error handlers
+// development error handler
+// will print stacktrace
+
+	if (app.get('env') === 'development') {
+	  app.use(function(err, req, res, next) {
+	    res.status(err.status || 500);
+	    res.render('error', {
+	      message: err.message,
+	     error: err
+	    });
+	  });
+	};
+
+// production error handler
+// no stacktraces leaked to user
+
+	app.use(function(err, req, res, next) {
+  	res.status(err.status || 500);
+  	res.render('error', {
+	 message: err.message,
+	 error: {}
+	 });
+	});
 
 
