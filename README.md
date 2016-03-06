@@ -96,4 +96,55 @@ As you can see in the example, you have to call next(); else it won’t go to th
 	  });
 	});
 
+#### Explain, using relevant examples, how to implement sessions, and the legal implications of doing this
+
+By using cookies, you can store information about the user, like a username or/and password.
+If you use cookies for login sessions, then you don’t have to tell the user you are using cookies. If you are using cookies for information about the users behavior then you have to alert the user about the usage of cookies. When you create a session you provide it with a secret, which is the sessions ID.
+
+	app.use(session({
+  	  genid: function(req) {
+    	    return genuuid() // use UUIDs for session IDs 
+  	  },
+  	  secret: 'keyboard cat'
+	}));
+
+#### Compare the express strategy toward (server side) templating with the one you used with Java on second
+semester
+
+The server side strategy in express works like the strategy in Java. Both in express and java its a server sided application
+which means its the server that renders the webpage. 
+
+####Explain, using a relevant examples, your strategy for implementing a REST-API with Node/Express and show
+how you can "test" all the four CRUD operations programmatically using for example the Request package.
+
+Check both rest.js and restTest.js to see examples and comments. I am using Chai, Mocha and Request libraries.
+
+####Explain, using relevant examples, about testing JavaScript code, relevant packages (Mocha etc.) and how to
+test asynchronous code.
+
+Check both rest.js and restTest.js to see examples and comments. I am using Chai, Mocha and Request libraries.
+
+####Explain, using relevant examples, different ways to mock out databases, HTTP-request etc.
+
+To ensure that your tests works, you are using a hardcoded mock which contains data you can test with your CRUD tests.
+The mock prevent your tests from failing when you are testing the functionality. If you didnt use a mock, and testet
+for something on your database and sudently someone changed the data your tests would fail. 
+The mock makes it faster to test instead of using postman.
+
+	var nock = require('nock');
+ 
+	var couchdb = nock('http://myapp.iriscouch.com')
+                .get('/users/1')
+                .reply(200, {
+                  _id: '123ABC',
+                  _rev: '946B7D1C',
+                  username: 'pgte',
+                  email: 'pedro.teixeira@gmail.com'
+                 });
+
+
+
+
+
+
 
