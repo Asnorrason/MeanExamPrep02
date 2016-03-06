@@ -24,3 +24,29 @@
 ###### Cons
 
 - You have to get middlewares from NPM. If it isnt a standard middleware, but something you havent used before, you have to look it up on the market before you install it, else you could end up with bad or old code.
+
+#### Node.js uses a Single Threaded Non-blocking strategy to handle asynchronous task. Explain strategies to implement a Node.js based server architecture that still could take advantage of a multi-core Server.
+
+Theres two different ways to do it, the first option is to each single core in their own virtual machine. 
+The other option and the most efficient are to use the cluster module, which already is installed in Node.js 0.8+. With the cluster module, you have a master process which contains workers (child). You only have to make the amount of workers for the amount of cores your computer have. The last option doesn’t need a virtual machine for a worker to run.
+
+
+#### Explain, using relevant examples, concepts related to the testing a REST-API using Node/JavaScript + relevant packages.
+
+To make automated tests, you can use the mocha, chai and request libraries. When you are writing a test, you start with a describe section, where you explain what you are going to test, and then a callback function. Inside the callback you write the tests, which starts with it and then an explaining String about the test and a callback function. Inside “its” callback function, you use the request library to call your api. Remember the done function, else it will get stuck and get a timeout.
+
+describe("Quick CRUD test", function() {
+
+    it("should return array", function (done) {
+        request.get(url, function (error, res, body) {
+
+            expect(res.statusCode).to.be.equal(200);
+            var testArray = JSON.parse(res.body); 
+            done();
+        });
+
+    });
+});
+
+
+
