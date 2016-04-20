@@ -36,7 +36,7 @@ The other option and the most efficient are to use the cluster module, which alr
 
 To make automated tests, you can use the mocha, chai and request libraries. When you are writing a test, you start with a describe section, where you explain what you are going to test, and then a callback function. Inside the callback you write the tests, which starts with it and then an explaining String about the test and a callback function. Inside “its” callback function, you use the request library to call your api. Remember the done function, else it will get stuck and get a timeout.
 
-describe("Quick CRUD test", function() {
+    describe("Quick CRUD test", function() {
 
     it("should return array", function (done) {
         request.get(url, function (error, res, body) {
@@ -47,7 +47,7 @@ describe("Quick CRUD test", function() {
         });
 
     });
-});
+    });
 
 ####Explain, using relevant examples, the Express concept; middleware.
 
@@ -75,12 +75,12 @@ As you can see in the example, you have to call next(); else it won’t go to th
 // development error handler
 // will print stacktrace
 
-	if (app.get('env') === 'development') {
-	  app.use(function(err, req, res, next) {
-	    res.status(err.status || 500);
-	    res.render('error', {
-	      message: err.message,
-	     error: err
+    if (app.get('env') === 'development') {
+    	app.use(function(err, req, res, next) {
+    		res.status(err.status || 500);
+    		res.render('error', {
+    		message: err.message,
+    		error: err
 	    });
 	  });
 	};
@@ -101,12 +101,12 @@ As you can see in the example, you have to call next(); else it won’t go to th
 By using cookies, you can store information about the user, like a username or/and password.
 If you use cookies for login sessions, then you don’t have to tell the user you are using cookies. If you are using cookies for information about the users behavior then you have to alert the user about the usage of cookies. When you create a session you provide it with a secret, which is the sessions ID.
 
-	app.use(session({
-  	  genid: function(req) {
-    	    return genuuid() // use UUIDs for session IDs 
-  	  },
-  	  secret: 'keyboard cat'
-	}));
+    app.use(session({
+     genid: function(req) {
+    	 return genuuid() // use UUIDs for session IDs 
+    	 },
+    	 secret: 'keyboard cat'
+    	 }));
 
 #### Compare the express strategy toward (server side) templating with the one you used with Java on second
 semester
